@@ -3,6 +3,11 @@ docker build . -t ocbuild --target oc-dev-edk2
 
 cd ../../
 
-docker run --volume .:/data -it ocbuild
-  cd /data
-  ./build_duet.tool
+docker run \
+  -t \
+  --volume .:/oc \
+  --env ARCHS=X64 \
+  --env TARGETS=RELEASE \
+  --env TOOLCHAINS=CLANGDWARF \
+  ocbuild \
+  /oc/build_duet.tool
